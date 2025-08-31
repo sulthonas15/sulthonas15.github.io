@@ -1,229 +1,78 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>sulthonas</title>
-    <meta name="description" content="A modern personal portfolio of a Game Developer, Application Developer & Website Developer. Explore my projects, skills, and experience.">
-    <meta name="keywords" content="portfolio, game developer, application developer, website developer, unity, android studio, flutter, html">
-    
-    <!-- Favicon Personal -->
-    <link rel="icon" type="image/png" href="img/logo_sul.jpg">
+    <link rel="icon" href="logo.jpg" type="image/png">
 
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Tailwind CSS Configuration -->
-    <script>
-        tailwind.config = {
-          darkMode: 'class',
-        }
-    </script>
 
-    <!-- Google Fonts: Poppins & Inter -->
+    <!-- Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
 
-    <!-- CSS Local-->
+    <!-- CSS Style -->
     <link rel="stylesheet" href="style.css">
-
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@0.368.0/dist/umd/lucide.min.js"></script>
 </head>
-<body class="bg-gray-50 dark:bg-[#0F172A] text-slate-700 dark:text-slate-200 transition-colors duration-500">
+<body class="h-screen antialiased overflow-y-auto">
+    <!-- The canvas where the 3D scene will be rendered -->
+    <canvas id="bg-canvas"></canvas>
 
-    <!-- Header -->
-    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-indigo-500 dark:text-cyan-400">sulthonas</a>
-            <div class="hidden md:flex items-center space-x-8">
-                <a href="#about" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">About Me</a>
-                <a href="#skills" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">Skills</a>
-                <a href="#projects" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">Projects</a>
-                <a href="#workflow" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">Work Process</a>
-                <a href="#contact" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">Contact</a>
+    <!-- Main content area -->
+    <main class="min-h-screen w-full flex items-center justify-center p-4">
+        <div class="content-container w-full max-w-md mx-auto rounded-2xl shadow-2xl p-6 md:p-8 text-center">
+
+            <!-- Profile Picture -->
+            <img class="w-28 h-28 rounded-full mx-auto mb-4 border-4 border-gray-700 shadow-lg" 
+                 src="profile.jpg" 
+                 alt="Foto Profil"
+                 onerror="this.onerror=null;this.src='https://placehold.co/200x200/cccccc/333333?text=Error';">
+
+            <!-- Name and Handle -->
+            <h1 class="text-3xl font-bold text-white">Sulthon Aris Setiawan</h1>
+            <p class="text-gray-400 mt-1">@sulthonas</p>
+            <p class="text-gray-300 mt-3 text-sm max-w-xs mx-auto">
+                💻 Web Dev | Computer Science<br>
+                Ngoding bukan kerja, tapi gaya hidup. Bikin web, pecahkan masalah, ubah ide jadi realita.
+            </p>
+
+            <!-- Links Section -->
+            <div class="mt-8 space-y-4">
+                <a href="#" target="_blank" class="link-button block w-full p-4 rounded-lg font-semibold text-lg">
+                    🚀 Portofolio GitHub
+                </a>
+                <a href="#" target="_blank" class="link-button block w-full p-4 rounded-lg font-semibold text-lg">
+                    🎬 Channel YouTube
+                </a>
+                <a href="#" target="_blank" class="link-button block w-full p-4 rounded-lg font-semibold text-lg">
+                    ✍️ Blog Pribadi
+                </a>
+                <a href="#" target="_blank" class="link-button block w-full p-4 rounded-lg font-semibold text-lg">
+                    💼 LinkedIn
+                </a>
             </div>
-            <div class="flex items-center">
-                 <button id="theme-toggle" class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-cyan-500">
-                    <svg id="theme-toggle-dark-icon" class="hidden h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-                    <svg id="theme-toggle-light-icon" class="hidden h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 5.05a1 1 0 010 1.414l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 0zM3 11a1 1 0 100-2H2a1 1 0 100 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
-                </button>
-                 <button id="mobile-menu-button" class="md:hidden p-2 ml-2 rounded-md hover:bg-slate-200 dark:hover:bg-slate-800">
-                    <i data-lucide="menu"></i>
-                </button>
+
+            <!-- Social Icons -->
+            <div class="flex justify-center space-x-6 mt-8">
+                <a href="#" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+                    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.378.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.338 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12.017C22 6.477 17.523 2 12 2z" clip-rule="evenodd" /></svg>
+                </a>
+                <a href="#" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+                    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.71v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" /></svg>
+                </a>
+                <a href="#" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+                     <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.024.06 1.378.06 3.808s-.012 2.784-.06 3.808c-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.024.048-1.378.06-3.808.06s-2.784-.013-3.808-.06c-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.048-1.024-.06-1.378-.06-3.808s.012-2.784.06-3.808c.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 016.08 2.525c.636-.247 1.363-.416 2.427-.465C9.53 2.013 9.884 2 12.315 2zM12 0C9.58 0 9.22.01 8.207.058c-1.065.048-1.85.217-2.53.482a6.902 6.902 0 00-2.4 1.622 6.902 6.902 0 00-1.622 2.4c-.265.68-.434 1.465-.482 2.53C.01 9.22 0 9.58 0 12s.01 2.78.058 3.793c.048 1.065.217 1.85.482 2.53a6.902 6.902 0 001.622 2.4 6.902 6.902 0 002.4 1.622c.68.265 1.465.434 2.53.482C9.22 23.99 9.58 24 12 24s2.78-.01 3.793-.058c1.065-.048 1.85-.217 2.53-.482a6.902 6.902 0 002.4-1.622 6.902 6.902 0 001.622-2.4c.265-.68.434-1.465.482-2.53C23.99 14.78 24 14.42 24 12s-.01-2.78-.058-3.793c-.048-1.065-.217-1.85-.482-2.53a6.902 6.902 0 00-1.622-2.4A6.902 6.902 0 0018.29.54c-.68-.265-1.465-.434-2.53-.482C14.78.01 14.42 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.88 1.44 1.44 0 000-2.88z" clip-rule="evenodd" /></svg>
+                </a>
             </div>
-        </nav>
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-slate-800">
-            <a href="#about" class="block py-2 px-6 text-sm hover:bg-slate-200 dark:hover:bg-slate-700">About Me</a>
-            <a href="#skills" class="block py-2 px-6 text-sm hover:bg-slate-200 dark:hover:bg-slate-700">Skills</a>
-            <a href="#projects" class="block py-2 px-6 text-sm hover:bg-slate-200 dark:hover:bg-slate-700">Projects</a>
-            <a href="#workflow" class="block py-2 px-6 text-sm hover:bg-slate-200 dark:hover:bg-slate-700">Work Process</a>
-            <a href="#contact" class="block py-2 px-6 text-sm hover:bg-slate-200 dark:hover:bg-slate-700">Contact</a>
         </div>
-    </header>
-
-    <main class="container mx-auto px-6">
-        <!-- Hero Section -->
-        <section id="home" class="min-h-screen flex items-center pt-24 md:pt-0">
-            <div id="parallax-bg" class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-slate-900 via-indigo-900 to-cyan-900 opacity-10 dark:opacity-20"></div>
-            <div class="relative w-full grid md:grid-cols-2 gap-8 items-center">
-                <div class="text-center md:text-left scroll-animate">
-                    <h1 class="text-4xl md:text-6xl font-bold leading-tight">
-                        Halo, Saya <span class="text-indigo-500 dark:text-cyan-400">Sulthon Aris Setiawan</span>
-                    </h1>
-                    <p class="mt-4 text-lg md:text-xl text-slate-600 dark:text-slate-400">
-                        Game Developer, Application Developer & Website Developer
-                    </p>
-                    <p class="mt-2 text-slate-500">Creating immersive and functional digital experiences from idea to reality.</p>
-                    <div class="mt-8 flex justify-center md:justify-start space-x-4">
-                        <a href="#contact" class="bg-indigo-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-indigo-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                            Contact Me
-                        </a>
-                        <a href="#projects" class="bg-slate-700 text-white font-semibold px-6 py-3 rounded-lg hover:bg-slate-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                            View Projects
-                        </a>
-                    </div>
-                </div>
-                <div class="flex justify-center scroll-animate" style="transition-delay: 200ms;">
-                    <div class="w-64 h-64 md:w-80 md:h-80 rounded-full p-2 bg-gradient-to-br from-indigo-500 to-cyan-400 neon-accent">
-                        <img src="img/photo.jpg" alt="Foto Sulthon Aris Setiawan" class="w-full h-full rounded-full object-cover">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- About Me Section -->
-        <section id="about" class="py-20 scroll-animate">
-            <h2 class="text-3xl font-bold text-center mb-12">About Me</h2>
-            <div class="max-w-3xl mx-auto text-center text-slate-600 dark:text-slate-400 space-y-4">
-                <p>I am a Computer Science student at the University of Lampung with a strong interest in technology. My hobby and passion are creating interactive and innovative games, apps, and websites.</p>
-                <p>In addition, I continue to develop my skills in programming, UI/UX design, and software development to create useful digital solutions.
-I enjoy challenges, learning new things, and collaborating in teams to produce quality products.</p>
-            </div>
-        </section>
-
-        <!-- Skills Section -->
-        <section id="skills" class="py-20">
-            <h2 class="text-3xl font-bold text-center mb-12 scroll-animate">Technology Expertise</h2>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 max-w-5xl mx-auto">
-                <!-- Skill Item -->
-                <div class="flex flex-col items-center p-6 bg-white dark:bg-slate-800 rounded-lg shadow-md hover:shadow-cyan-500/20 dark:hover:shadow-cyan-400/20 hover:-translate-y-2 transition-all duration-300 scroll-animate">
-                    <i data-lucide="gamepad-2" class="w-12 h-12 text-cyan-500"></i>
-                    <h3 class="mt-4 font-semibold">Unity</h3>
-                </div>
-                 <!-- Skill Item -->
-                <div class="flex flex-col items-center p-6 bg-white dark:bg-slate-800 rounded-lg shadow-md hover:shadow-cyan-500/20 dark:hover:shadow-cyan-400/20 hover:-translate-y-2 transition-all duration-300 scroll-animate" style="transition-delay: 200ms;">
-                    <i data-lucide="smartphone" class="w-12 h-12 text-cyan-500"></i>
-                    <h3 class="mt-4 font-semibold">Android Studio</h3>
-                </div>
-                 <!-- Skill Item -->
-                <div class="flex flex-col items-center p-6 bg-white dark:bg-slate-800 rounded-lg shadow-md hover:shadow-cyan-500/20 dark:hover:shadow-cyan-400/20 hover:-translate-y-2 transition-all duration-300 scroll-animate" style="transition-delay: 300ms;">
-                    <i data-lucide="app-window" class="w-12 h-12 text-cyan-500"></i>
-                    <h3 class="mt-4 font-semibold">Flutter</h3>
-                </div>
-                 <!-- Skill Item -->
-                <div class="flex flex-col items-center p-6 bg-white dark:bg-slate-800 rounded-lg shadow-md hover:shadow-cyan-500/20 dark:hover:shadow-cyan-400/20 hover:-translate-y-2 transition-all duration-300 scroll-animate" style="transition-delay: 400ms;">
-                    <i data-lucide="file-code" class="w-12 h-12 text-cyan-500"></i>
-                    <h3 class="mt-4 font-semibold">HTML</h3>
-                </div>
-            </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section id="projects" class="py-20">
-            <h2 class="text-3xl font-bold text-center mb-12 scroll-animate">All Projects</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Project Card 1 -->
-                <div class="glass-card rounded-xl overflow-hidden group scroll-animate">
-                    <img src="img/project1.png" alt="Project 1" class="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300">
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">3D Link In Bio</h3>
-                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-4">A modern, interactive, and super cool link-in-bio page. Forget the usual Linktree, this is next level.</p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="bg-indigo-500/20 text-indigo-800 dark:text-indigo-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">HTML</span>
-                            <span class="bg-slate-500/20 text-slate-800 dark:text-slate-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">CSS</span>
-                            <span class="bg-yellow-500/20 text-yellow-800 dark:text-yellow-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Javascript</span>
-                        </div>
-                        <div class="flex space-x-4 mt-auto">
-                            <a href="projects/3d link in bio/index.html" class="text-sm font-semibold text-indigo-500 hover:text-cyan-500 dark:text-cyan-400 dark:hover:text-cyan-300 transition-colors">Live Demo <i data-lucide="arrow-up-right" class="inline w-4 h-4"></i></a>
-                            <a href="https://github.com/sulthonas15/3d-link-in-bio.git" class="text-sm font-semibold text-indigo-500 hover:text-cyan-500 dark:text-cyan-400 dark:hover:text-cyan-300 transition-colors">Source Code <i data-lucide="github" class="inline w-4 h-4"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- My Workflow Section -->
-        <section id="workflow" class="py-20">
-            <h2 class="text-3xl font-bold text-center mb-12 scroll-animate">My Work Process</h2>
-            <div class="max-w-5xl mx-auto grid md:grid-cols-4 gap-8 text-center">
-                <!-- Workflow Step 1 -->
-                <div class="flex flex-col items-center scroll-animate" style="transition-delay: 0ms;">
-                    <div class="w-20 h-20 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center border-2 border-cyan-500 mb-4">
-                        <i data-lucide="lightbulb" class="w-10 h-10 text-cyan-500"></i>
-                    </div>
-                    <h3 class="font-semibold mb-2">1. Planning</h3>
-                    <p class="text-sm text-slate-600 dark:text-slate-400">Understand the problem, define the goals, and plan the main features of the project.</p>
-                </div>
-                <!-- Workflow Step 2 -->
-                <div class="flex flex-col items-center scroll-animate" style="transition-delay: 200ms;">
-                    <div class="w-20 h-20 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center border-2 border-indigo-500 mb-4">
-                        <i data-lucide="layout-template" class="w-10 h-10 text-indigo-500"></i>
-                    </div>
-                    <h3 class="font-semibold mb-2">2. Design</h3>
-                    <p class="text-sm text-slate-600 dark:text-slate-400">Designing system architecture, creating wireframes, and user interface (UI/UX) prototypes.</p>
-                </div>
-                <!-- Workflow Step 3 -->
-                <div class="flex flex-col items-center scroll-animate" style="transition-delay: 400ms;">
-                    <div class="w-20 h-20 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center border-2 border-cyan-500 mb-4">
-                        <i data-lucide="code-square" class="w-10 h-10 text-cyan-500"></i>
-                    </div>
-                    <h3 class="font-semibold mb-2">3. Development</h3>
-                    <p class="text-sm text-slate-600 dark:text-slate-400">Write clean and efficient code, and implement all functionality.</p>
-                </div>
-                <!-- Workflow Step 4 -->
-                <div class="flex flex-col items-center scroll-animate" style="transition-delay: 600ms;">
-                    <div class="w-20 h-20 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center border-2 border-indigo-500 mb-4">
-                        <i data-lucide="rocket" class="w-10 h-10 text-indigo-500"></i>
-                    </div>
-                    <h3 class="font-semibold mb-2">4. Launch</h3>
-                    <p class="text-sm text-slate-600 dark:text-slate-400">Perform thorough testing, fix bugs, and deploy the project.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="py-20 text-center">
-            <h2 class="text-3xl font-bold mb-4 scroll-animate">Interested in Working Together?</h2>
-            <p class="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl mx-auto scroll-animate">I'm always open to discussing new projects or collaboration opportunities. Feel free to contact me via the form below or on social media.</p>
-            <form class="max-w-xl mx-auto space-y-4 scroll-animate" style="transition-delay: 200ms;">
-                <input type="text" placeholder="Your Name" class="w-full p-3 rounded-lg bg-slate-200 dark:bg-slate-800 border border-transparent focus:ring-2 focus:ring-cyan-500 focus:outline-none">
-                <input type="email" placeholder="Your Email" class="w-full p-3 rounded-lg bg-slate-200 dark:bg-slate-800 border border-transparent focus:ring-2 focus:ring-cyan-500 focus:outline-none">
-                <textarea placeholder="Your Message" rows="5" class="w-full p-3 rounded-lg bg-slate-200 dark:bg-slate-800 border border-transparent focus:ring-2 focus:ring-cyan-500 focus:outline-none"></textarea>
-                <button type="submit" class="w-full bg-indigo-500 text-white font-semibold p-3 rounded-lg hover:bg-indigo-600 transition-colors duration-300">
-                    Send Message
-                </button>
-            </form>
-            <div class="mt-12 flex justify-center space-x-6 scroll-animate" style="transition-delay: 400ms;">
-                <a href="#" class="text-slate-500 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">
-                    <i data-lucide="github" class="w-8 h-8"></i>
-                </a>
-                 <a href="#" class="text-slate-500 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">
-                    <i data-lucide="youtube" class="w-8 h-8"></i>
-                </a>
-                 <a href="#" class="text-slate-500 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">
-                    <i data-lucide="instagram" class="w-8 h-8"></i>
-                </a>
-            </div>
-        </section>
     </main>
-
-    <footer class="text-center py-8 border-t border-slate-200 dark:border-slate-800">
-        <p class="text-sm text-slate-500">&copy; 2025 Sulthon Aris Setiawan.</p>
-    </footer>
 
     <script src="script.js"></script>
 </body>
 </html>
-
