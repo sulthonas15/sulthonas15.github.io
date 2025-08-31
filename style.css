@@ -1,0 +1,60 @@
+/* Menggunakan font yang diimpor */
+body {
+    font-family: 'Inter', sans-serif;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+}
+        
+/* Glassmorphism Effect for Dark Mode */
+.dark .glass-card {
+    background: rgba(23, 37, 62, 0.6); /* Slightly lighter than #0F172A */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(34, 211, 238, 0.2);
+}
+        
+/* Glassmorphism Effect for Light Mode */
+.glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(200, 200, 200, 0.4);
+}
+        
+/* Animasi scroll fade-in/slide-up */
+.scroll-animate {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.scroll-animate.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+        
+/* Efek Neon Glow */
+.neon-accent {
+    box-shadow: 0 0 5px #22D3EE, 0 0 10px #22D3EE, 0 0 15px #6366F1;
+}
+.dark .neon-accent-text {
+    text-shadow: 0 0 3px #22D3EE, 0 0 5px #6366F1;
+}
+        
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #e2e8f0;
+}
+.dark ::-webkit-scrollbar-track {
+    background: #020617;
+}
+::-webkit-scrollbar-thumb {
+    background: #6366F1;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #4f46e5;
+}
